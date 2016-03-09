@@ -1,19 +1,19 @@
 use utf8;
-package MyApp::Schema::Result::Import;
+package system_verilog::parse::Schema::Result::Import;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-MyApp::Schema::Result::Import
+system_verilog::parse::Schema::Result::Import
 
 =cut
 
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Core';
+use base 'system_verilog::parse::Schema::Core';
 
 =head1 TABLE: C<Import>
 
@@ -78,13 +78,13 @@ __PACKAGE__->set_primary_key("import_id");
 
 Type: belongs_to
 
-Related object: L<MyApp::Schema::Result::Class>
+Related object: L<system_verilog::parse::Schema::Result::Class>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "class",
-  "MyApp::Schema::Result::Class",
+  "system_verilog::parse::Schema::Result::Class",
   { class_id => "class_id" },
   {
     is_deferrable => 0,
@@ -98,13 +98,13 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<MyApp::Schema::Result::Package>
+Related object: L<system_verilog::parse::Schema::Result::Package>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "package",
-  "MyApp::Schema::Result::Package",
+  "system_verilog::parse::Schema::Result::Package",
   { package_id => "package_id" },
   { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
@@ -113,13 +113,13 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<MyApp::Schema::Result::Package>
+Related object: L<system_verilog::parse::Schema::Result::Package>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "package_import",
-  "MyApp::Schema::Result::Package",
+  "system_verilog::parse::Schema::Result::Package",
   { package_id => "package_import" },
   {
     is_deferrable => 0,

@@ -1,19 +1,19 @@
 use utf8;
-package MyApp::Schema::Result::Class;
+package system_verilog::parse::Schema::Result::Class;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-MyApp::Schema::Result::Class
+system_verilog::parse::Schema::Result::Class
 
 =cut
 
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Core';
+use base 'system_verilog::parse::Schema::Core';
 
 =head1 TABLE: C<Class>
 
@@ -44,6 +44,11 @@ __PACKAGE__->table("Class");
   data_type: 'integer'
   is_nullable: 1
 
+=head2 extends_name
+
+  data_type: 'text'
+  is_nullable: 0
+
 =head2 package_id
 
   data_type: 'integer'
@@ -64,6 +69,8 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "line_num",
   { data_type => "integer", is_nullable => 1 },
+  "extends_name",
+  { data_type => "text", is_nullable => 1 },
   "extends",
   { data_type => "integer", is_nullable => 1 },
   "package_id",
@@ -86,7 +93,6 @@ __PACKAGE__->set_primary_key("class_id");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<file_unique>
 
 =over 4
 
@@ -96,7 +102,6 @@ __PACKAGE__->set_primary_key("class_id");
 
 =cut
 
-__PACKAGE__->add_unique_constraint("file_unique", ["file"]);
 
 =head1 RELATIONS
 
@@ -104,13 +109,13 @@ __PACKAGE__->add_unique_constraint("file_unique", ["file"]);
 
 Type: has_many
 
-Related object: L<MyApp::Schema::Result::Function>
+Related object: L<system_verilog::parse::Schema::Result::Function>
 
 =cut
 
 __PACKAGE__->has_many(
   "functions",
-  "MyApp::Schema::Result::Function",
+  "system_verilog::parse::Schema::Result::Function",
   { "foreign.class_id" => "self.class_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -119,13 +124,13 @@ __PACKAGE__->has_many(
 
 Type: has_many
 
-Related object: L<MyApp::Schema::Result::Import>
+Related object: L<system_verilog::parse::Schema::Result::Import>
 
 =cut
 
 __PACKAGE__->has_many(
   "imports",
-  "MyApp::Schema::Result::Import",
+  "system_verilog::parse::Schema::Result::Import",
   { "foreign.class_id" => "self.class_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -134,13 +139,13 @@ __PACKAGE__->has_many(
 
 Type: belongs_to
 
-Related object: L<MyApp::Schema::Result::Package>
+Related object: L<system_verilog::parse::Schema::Result::Package>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "package",
-  "MyApp::Schema::Result::Package",
+  "system_verilog::parse::Schema::Result::Package",
   { package_id => "package_id" },
   {
     is_deferrable => 0,
@@ -154,13 +159,13 @@ __PACKAGE__->belongs_to(
 
 Type: has_many
 
-Related object: L<MyApp::Schema::Result::Variable>
+Related object: L<system_verilog::parse::Schema::Result::Variable>
 
 =cut
 
 __PACKAGE__->has_many(
   "variables",
-  "MyApp::Schema::Result::Variable",
+  "system_verilog::parse::Schema::Result::Variable",
   { "foreign.class_id" => "self.class_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -168,7 +173,33 @@ __PACKAGE__->has_many(
 
 # Created by DBIx::Class::Schema::Loader v0.07038 @ 2013-12-29 20:59:40
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PJy6dK8WSMDoTVEkdGfRAw
+sub variable_names
+{
+    my $self=shift;
+    my @names;
+    foreach my $res ( $self->variables)
+    {
+        push @names,$res->name;
+    }
+    return @names;
+}
+sub function_names
+{
+    my $self=shift;
+    my @names;
+    foreach my $res ( $self->functions)
+    {
+        push @names,$res->name;
+    }
+    return @names;
+}
 
-
+sub extend_func_names
+{
+    my $self=shift;
+    my @names;
+    # $self->extends->function_names;
+    #use extends_it when it gets populated 
+}
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

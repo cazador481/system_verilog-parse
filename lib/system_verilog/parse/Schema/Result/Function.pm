@@ -1,19 +1,19 @@
 use utf8;
-package MyApp::Schema::Result::Function;
+package system_verilog::parse::Schema::Result::Function;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-MyApp::Schema::Result::Function
+system_verilog::parse::Schema::Result::Function
 
 =cut
 
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Core';
+use base 'system_verilog::parse::Schema::Core';
 
 =head1 TABLE: C<Function>
 
@@ -90,13 +90,13 @@ __PACKAGE__->set_primary_key("function_id");
 
 Type: belongs_to
 
-Related object: L<MyApp::Schema::Result::Class>
+Related object: L<system_verilog::parse::Schema::Result::Class>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "class",
-  "MyApp::Schema::Result::Class",
+  "system_verilog::parse::Schema::Result::Class",
   { class_id => "class_id" },
   {
     is_deferrable => 0,
@@ -110,13 +110,13 @@ __PACKAGE__->belongs_to(
 
 Type: has_many
 
-Related object: L<MyApp::Schema::Result::Variable>
+Related object: L<system_verilog::parse::Schema::Result::Variable>
 
 =cut
 
 __PACKAGE__->has_many(
   "variables",
-  "MyApp::Schema::Result::Variable",
+  "system_verilog::parse::Schema::Result::Variable",
   { "foreign.function_id" => "self.function_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );

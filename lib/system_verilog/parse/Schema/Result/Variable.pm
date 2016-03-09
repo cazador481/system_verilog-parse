@@ -1,19 +1,19 @@
 use utf8;
-package MyApp::Schema::Result::Variable;
+package system_verilog::parse::Schema::Result::Variable;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-MyApp::Schema::Result::Variable
+system_verilog::parse::Schema::Result::Variable
 
 =cut
 
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Core';
+use base 'system_verilog::parse::Schema::Core';
 
 =head1 TABLE: C<Variable>
 
@@ -51,8 +51,8 @@ __PACKAGE__->table("Variable");
   data_type: 'text'
   is_nullable: 0
 
-
 =head2 name
+
 
   data_type: 'text'
   is_nullable: 0
@@ -99,13 +99,13 @@ __PACKAGE__->set_primary_key("variable_id");
 
 Type: belongs_to
 
-Related object: L<MyApp::Schema::Result::Class>
+Related object: L<system_verilog::parse::Schema::Result::Class>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "class",
-  "MyApp::Schema::Result::Class",
+  "system_verilog::parse::Schema::Result::Class",
   { class_id => "class_id" },
   {
     is_deferrable => 0,
@@ -119,13 +119,13 @@ __PACKAGE__->belongs_to(
 
 Type: belongs_to
 
-Related object: L<MyApp::Schema::Result::Function>
+Related object: L<system_verilog::parse::Schema::Result::Function>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "function",
-  "MyApp::Schema::Result::Function",
+  "system_verilog::parse::Schema::Result::Function",
   { function_id => "function_id" },
   {
     is_deferrable => 0,

@@ -1,18 +1,18 @@
 use utf8;
-package system_verilog::Schema::Result::Package;
+package system_verilog::parse::Schema::Result::Package;
 
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-MyApp::Schema::Result::Package
+system_verilog::parse::Schema::Result::Package
 
 =cut
 
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Core';
+use base 'system_verilog::parse::Schema::Core';
 
 =head1 TABLE: C<Package>
 
@@ -33,7 +33,7 @@ __PACKAGE__->table("Package");
   data_type: 'text'
   is_nullable: 1
 
-=head2 line_number
+=head2 line_num
 
   data_type: 'integer'
   is_nullable: 1
@@ -50,7 +50,7 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "file",
   { data_type => "text", is_nullable => 1 },
-  "line_number",
+  "line_num",
   { data_type => "integer", is_nullable => 1 },
   "name",
   { data_type => "text", is_nullable => 0 },
@@ -74,13 +74,13 @@ __PACKAGE__->set_primary_key("package_id");
 
 Type: has_many
 
-Related object: L<MyApp::Schema::Result::Class>
+Related object: L<system_verilog::parse::Schema::Result::Class>
 
 =cut
 
 __PACKAGE__->has_many(
   "classes",
-  "MyApp::Schema::Result::Class",
+  "system_verilog::parse::Schema::Result::Class",
   { "foreign.package_id" => "self.package_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -89,13 +89,14 @@ __PACKAGE__->has_many(
 
 Type: has_many
 
-Related object: L<MyApp::Schema::Result::Import>
+Related object: L<system_verilog::parse::Schema::Result::Import>
 
 =cut
 
 __PACKAGE__->has_many(
-  "import_package_imports",
-  "MyApp::Schema::Result::Import",
+    
+  "imported_packages",
+  "system_verilog::parse::Schema::Result::Import",
   { "foreign.package_import" => "self.package_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
@@ -104,24 +105,17 @@ __PACKAGE__->has_many(
 
 Type: has_many
 
-Related object: L<MyApp::Schema::Result::Import>
+Related object: L<system_verilog::parse::Schema::Result::Import>
 
 =cut
 
 __PACKAGE__->has_many(
   "import_packages",
-  "MyApp::Schema::Result::Import",
+  "system_verilog::parse::Schema::Result::Import",
   { "foreign.package_id" => "self.package_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-
-# Created by DBIx::Class::Schema::Loader v0.07038 @ 2013-12-29 20:59:40
-# DO NOT MODIFY THIS OR ANYTHING 
-  "MyApp::Schema::Result::Import",
-  { "foreign.package_id" => "self.package_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
 
 
 # Created by DBIx::Class::Schema::Loader v0.07038 @ 2013-12-29 20:59:40
@@ -133,6 +127,6 @@ __PACKAGE__->has_many(
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->many_to_many(imports =>'import_packages','package_import');
-1;
 
-P
+__PACKAGE__->add_unique_constraint(['name']);
+1;

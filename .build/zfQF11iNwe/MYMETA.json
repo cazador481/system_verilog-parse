@@ -1,0 +1,45 @@
+{
+   "abstract" : "Dummy",
+   "author" : [
+      "Edward Ash <eddie@ashfamily.net>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 5.008, CPAN::Meta::Converter version 2.133380",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "system_verilog-parse",
+   "prereqs" : {
+      "build" : {
+         "requires" : {}
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.30"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "DBIx::Class::Core" : "0",
+            "DBIx::Class::Schema" : "0",
+            "Moo" : "0",
+            "base" : "0",
+            "strict" : "0",
+            "system_verlog::parse::schema" : "0",
+            "utf8" : "0",
+            "warnings" : "0"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "version" : "0.001"
+}
