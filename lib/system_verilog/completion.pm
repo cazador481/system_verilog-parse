@@ -15,12 +15,15 @@
 #     REVISION: ---
 #===============================================================================
 
+
+#NOTE:  This does not work at this point of time
 use strict;
 use warnings;
 package system_verilog::completion;
 use Moo;
 use List::MoreUtils qw(uniq);
-has db_file=>(is=>'ro',required=>1);
+use Types::Path::Tiny qw(File);
+has db_file=>(is=>'ro',isa=>File,required=>1,coerce=>1);
 has _schema=>(is=>'ro', lazy=>1,
     builder=>'build_schema');
 sub build_schema {
@@ -46,7 +49,7 @@ sub _all_var
 
 sub _all_func
 {
-    my $self;
+    my $self=shift;
     my $opts=shift;
     #opts: class, package,filename
     my @names;
